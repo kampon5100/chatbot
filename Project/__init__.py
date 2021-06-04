@@ -29,8 +29,8 @@ def webhook():
             ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
         
         elif "btc" in message :
-            Reply_messasge = 'ราคา BITCOIN ขณะนี้ : {}'.format(GET_BTC_PRICE())
-            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+            #Reply_messasge = 'ราคา BITCOIN ขณะนี้ : {}'.format(GET_BTC_PRICE())
+            ReplyImage(Reply_token,Reply_messasge,Channel_access_token)
 
 
         return request.json, 200
@@ -44,6 +44,31 @@ def webhook():
 @app.route('/')
 def hello():
     return 'hello world book',200
+
+
+def ReplyImage(Reply_token, TextMessage, Line_Acees_Token):
+    LINE_API = 'https://api.line.me/v2/bot/message/reply'
+
+    Authorization = 'Bearer {}'.format(Line_Acees_Token) ##ที่ยาวๆ
+    print(Authorization)
+    headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization':Authorization
+    }
+
+    data = {
+        "replyToken":Reply_token,
+        "messages":[{
+             "type": "image",
+                "originalContentUrl": "086531748.png",
+                "previewImageUrl": "086531748.png"
+        }]
+    }
+
+    data = json.dumps(data) ## dump dict >> Json Object
+    r = requests.post(LINE_API, headers=headers, data=data) 
+    return 200
+
 
 def ReplyMessage(Reply_token, TextMessage, Line_Acees_Token):
     LINE_API = 'https://api.line.me/v2/bot/message/reply'
