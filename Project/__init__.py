@@ -56,17 +56,26 @@ def ReplyImage(Reply_token, TextMessage, Line_Acees_Token):
         'Authorization':Authorization
     }
 
+    '''
     data = {
         "replyToken":Reply_token,
         "messages":[{
              "type": "image",
-                "originalContentUrl": "086531748.png",
-                "previewImageUrl": "086531748.png"
+                "originalContentUrl": "https://upload.wikimedia.org/wikipedia/th/7/7f/Earn-CD_1.jpg",
+                "previewImageUrl": "https://upload.wikimedia.org/wikipedia/th/7/7f/Earn-CD_1.jpg"
         }]
     }
 
     data = json.dumps(data) ## dump dict >> Json Object
-    r = requests.post(LINE_API, headers=headers, data=data) 
+    '''
+    a = {
+        "replyToken":Reply_token,
+        "imageUrl": "086531748.png",
+        "imageName": "086531748"
+        }
+    decoded = json.loads(a)
+
+    r = requests.post(LINE_API, headers=headers, data=decoded) 
     return 200
 
 
