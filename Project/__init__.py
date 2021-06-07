@@ -34,6 +34,7 @@ def webhook():
         return request.json, 200
 
     elif request.method == 'GET' :
+        lineNotify('ไม่พบเบอร์')
         return 'this is method GET!!! 11111122666 ' , 200
 
     else:
