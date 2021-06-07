@@ -50,9 +50,7 @@ def lineNotify(message):
 
 #รูปภาพ
 def notifyPicture(url):
-    r = requests.get(url)
-    x = json.loads(r.content)
-    payload = {'message':x ,'imageThumbnail':url,'imageFullsize':url}
+    payload = {'message':" ",'imageThumbnail':url,'imageFullsize':url}
     return _lineNotify(payload)
 
 #ส่งแจ้งเตือน
