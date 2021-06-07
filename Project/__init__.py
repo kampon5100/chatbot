@@ -28,17 +28,9 @@ def webhook():
         
         for x in number:
             strUrl = r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F'+x+r'.png?alt=media&token=1df63c8b-378c-45af-9796-76448ab91c85'
-            
-            r = requests.get(strUrl)
-            y = json.loads(r.content)
-            if(y["code"] == 400)
-                lineNotify(x)
-                lineNotify(r.json().code)
-            else
-                lineNotify('ไม่พบ :'+x)
-            #notifyPicture(strUrl)
-            
-            
+            lineNotify(x)
+            notifyPicture(strUrl)
+
         return request.json, 200
 
     elif request.method == 'GET' :
@@ -58,7 +50,9 @@ def lineNotify(message):
 
 #รูปภาพ
 def notifyPicture(url):
-    payload = {'message':" ",'imageThumbnail':url,'imageFullsize':url}
+    r = requests.get(url)
+    x = json.loads(r.content)
+    payload = {'message':x ,'imageThumbnail':url,'imageFullsize':url}
     return _lineNotify(payload)
 
 #ส่งแจ้งเตือน
