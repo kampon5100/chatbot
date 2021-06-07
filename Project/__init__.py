@@ -23,16 +23,9 @@ def webhook():
         print(Reply_token)
         message = payload['events'][0]['message']['text']
         print(message)
-        if 'หุ้น' in message :
-            ITD = thaistock('ITD')
-            Reply_messasge = 'ราคาหุ้น อิตาเลียนไทย ขณะนี้ : {}'.format(ITD)
-            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        if '0' in message :
+            notifyPicture(r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F0613927219.png?alt=media&token=1df63c8b-378c-45af-9796-76448ab91c85')
         
-        elif "btc" in message :
-            #Reply_messasge = 'ราคา BITCOIN ขณะนี้ : {}'.format(GET_BTC_PRICE())
-            ReplyImage(Reply_token,Reply_messasge,Channel_access_token)
-
-
         return request.json, 200
 
     elif request.method == 'GET' :
@@ -45,58 +38,15 @@ def webhook():
 def hello():
     return 'hello world book',200
 
+#รูปภาพ
+def notifyPicture(url):
+    payload = {'message':" ",'imageThumbnail':url,'imageFullsize':url}
+    return _lineNotify(payload)
 
-def ReplyImage(Reply_token, TextMessage, Line_Acees_Token):
-    LINE_API = 'https://api.line.me/v2/bot/message/reply'
-
-    Authorization = 'Bearer {}'.format(Line_Acees_Token) ##ที่ยาวๆ
-    print(Authorization)
-    headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':Authorization
-    }
-
-    '''
-    data = {
-        "replyToken":Reply_token,
-        "messages":[{
-             "type": "image",
-                "originalContentUrl": "https://upload.wikimedia.org/wikipedia/th/7/7f/Earn-CD_1.jpg",
-                "previewImageUrl": "https://upload.wikimedia.org/wikipedia/th/7/7f/Earn-CD_1.jpg"
-        }]
-    }
-
-    data = json.dumps(data) ## dump dict >> Json Object
-    '''
-    a = {
-        "replyToken":Reply_token,
-        "imageUrl": "086531748.png",
-        "imageName": "086531748"
-        }
-    decoded = json.loads(a)
-
-    r = requests.post(LINE_API, headers=headers, data=decoded) 
-    return 200
-
-
-def ReplyMessage(Reply_token, TextMessage, Line_Acees_Token):
-    LINE_API = 'https://api.line.me/v2/bot/message/reply'
-
-    Authorization = 'Bearer {}'.format(Line_Acees_Token) ##ที่ยาวๆ
-    print(Authorization)
-    headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':Authorization
-    }
-
-    data = {
-        "replyToken":Reply_token,
-        "messages":[{
-            "type":"text",
-            "text":TextMessage
-        }]
-    }
-
-    data = json.dumps(data) ## dump dict >> Json Object
-    r = requests.post(LINE_API, headers=headers, data=data) 
-    return 200
+#ส่งแจ้งเตือน
+def _lineNotify(payload,file=None):
+    import requests
+    url = 'https://notify-api.line.me/api/notify'
+    token = 'Zp56ZkEvR7kyfeeTWuj8Pvdg05gvQQrGNAZNxlSWUgY'
+    headers = {'Authorization':'Bearer '+token}
+    return requests.post(url, headers=headers , data = payload, files=file)
