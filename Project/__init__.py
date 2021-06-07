@@ -29,10 +29,10 @@ def webhook():
         for x in number:
             strUrl = r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F'+x+r'.png?alt=media&token=1df63c8b-378c-45af-9796-76448ab91c85'
             r = requests.head(strUrl)
-            if(x[0] == '0' and len(x) == 10 and r.status_code <> 404 )
+            if(x[0] == '0' and r.status_code <> 404 )
                 lineNotify(x)
                 notifyPicture(strUrl)
-            elif(x[0] == '0' and len(x) == 10 and r.status_code == 404 )
+            elif(x[0] == '0' and r.status_code == 404 )
                 lineNotify('ไม่พบเบอร์ :'+x)
 
         return request.json, 200
