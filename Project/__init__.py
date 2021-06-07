@@ -27,9 +27,11 @@ def webhook():
         
         
         for x in number:
-            strUrl = r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F'+x+r'.png?alt=media&token=1df63c8b-378c-45af-9796-76448ab91c85'
-            lineNotify(x)
-            notifyPicture(strUrl)
+            strUrl = r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F'+x+r'.png?alt=media&token=4cc86a24-1796-44bd-9686-3fbbdf3f254e'
+            #strUrl = r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F'+x+r'.png?alt=media&token=1df63c8b-378c-45af-9796-76448ab91c85'
+            if(len(x) == 10 and x[0] == '0')
+                lineNotify(x)
+                notifyPicture(strUrl)
 
         return request.json, 200
 
