@@ -23,8 +23,8 @@ def webhook():
         print(Reply_token)
         message = payload['events'][0]['message']['text']
         print(message)
-        if '0' in message :
-            notifyPicture(r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F0613927219.png?alt=media&token=1df63c8b-378c-45af-9796-76448ab91c85')
+        #if '0' in message :
+        notifyPicture(r'https://firebasestorage.googleapis.com/v0/b/image-284ce.appspot.com/o/civil%20registration%2F'+message+r'.png?alt=media&token=1df63c8b-378c-45af-9796-76448ab91c85')
         
         return request.json, 200
 
@@ -47,6 +47,6 @@ def notifyPicture(url):
 def _lineNotify(payload,file=None):
     import requests
     url = 'https://notify-api.line.me/api/notify'
-    token = 'Zp56ZkEvR7kyfeeTWuj8Pvdg05gvQQrGNAZNxlSWUgY'
+    token = 'phv9j1wVnRhB9tOodD7ttLlkt9zYGcQHUI1E4woNjhx'
     headers = {'Authorization':'Bearer '+token}
     return requests.post(url, headers=headers , data = payload, files=file)
